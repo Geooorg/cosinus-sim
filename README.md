@@ -21,14 +21,16 @@ markiert, wenn beide Vektoren in dieselbe Richtung zeigen.
 ## Voraussetzungen
 
 - Python 3.9 oder neuer
+- [uv](https://docs.astral.sh/uv/) – verwaltet die Abhängigkeiten und die
+  passende virtuelle Umgebung automatisch. `uv run ...` installiert bei
+  Bedarf selbstständig alles Nötige in eine projekteigene Umgebung; eine
+  manuelle Aktivierung eines venv ist nicht nötig.
 - Die Rechenlogik selbst (`vector_math.py`) braucht keine externen Pakete
-- Für die farbige Terminal-Visualisierung: `pip install colorama`
-- Für die Tests: `pip install pytest`
 
 ## Ausführen
 
 ```bash
-python main.py
+uv run main.py
 ```
 
 Beispiel-Eingabe:
@@ -41,7 +43,7 @@ Vektor B (Werte durch Leerzeichen getrennt): 4 3
 ## Tests ausführen
 
 ```bash
-python -m pytest tests/ -v
+uv run pytest tests/ -v
 ```
 
 ## Projektstruktur
