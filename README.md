@@ -33,12 +33,9 @@ markiert, wenn beide Vektoren in dieselbe Richtung zeigen.
 uv run main.py
 ```
 
-Beispiel-Eingabe:
+Beispiel:
 
-```
-Vektor A (Werte durch Leerzeichen getrennt): 3 4
-Vektor B (Werte durch Leerzeichen getrennt): 4 3
-```
+![image](./docs/example.png)
 
 ## Tests ausführen
 
