@@ -11,3 +11,11 @@ def skalarprodukt(a, b):
     for x, y in zip(a, b):
         summe += x * y
     return summe
+
+
+def betrag(v):
+    """Berechnet die euklidische Norm (Länge) eines Vektors."""
+    quadratsumme = 0.0
+    for x in v:
+        quadratsumme += x * x
+    return math.sqrt(quadratsumme)
