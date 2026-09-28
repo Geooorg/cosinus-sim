@@ -1,5 +1,7 @@
 """CLI für die schrittweise Berechnung und Visualisierung der Cosinus-Ähnlichkeit."""
 
+import math
+
 from vector_math import skalarprodukt, betrag, cosinus_aehnlichkeit, winkel_in_grad
 from visualisierung import erstelle_raster
 
@@ -14,6 +16,9 @@ def lese_vektor(bezeichnung):
             continue
         if len(vektor) == 0:
             print("Bitte mindestens einen Wert eingeben.\n")
+            continue
+        if not all(math.isfinite(wert) for wert in vektor):
+            print("Bitte nur endliche Zahlen eingeben (kein 'nan' oder 'inf').\n")
             continue
         if betrag(vektor) == 0:
             print("Der Nullvektor ist nicht erlaubt (Division durch 0 bei der Normalisierung).\n")
@@ -46,7 +51,7 @@ def zeige_skalarprodukt_schritte(a, b):
 
 def zeige_betrag_schritte(v, name):
     print(f"Schritt: Betrag (Norm) von {name}")
-    quadrate = " + ".join(f"{x:g}²" for x in v)
+    quadrate = " + ".join(f"({x:g})²" if x < 0 else f"{x:g}²" for x in v)
     quadratsumme = sum(x * x for x in v)
     ergebnis = betrag(v)
     print(f"  ‖{name}‖ = √({quadrate})")
@@ -103,7 +108,7 @@ def main():
         print("=== Visualisierung ===")
         for zeile in erstelle_raster(a, b):
             print(zeile)
-        print("\nLegende: * = Vektor A, o = Vektor B")
+        print("\nLegende: * = Vektor A, o = Vektor B, X = A und B (gleiche Richtung)")
         print(f"Winkel zwischen den Vektoren: {winkel:.2f}°")
     else:
         print("Hinweis: Die Visualisierung ist nur für 2D-Vektoren verfügbar.")

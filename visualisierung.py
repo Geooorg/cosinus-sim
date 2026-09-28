@@ -2,6 +2,7 @@
 
 SYMBOL_A = "*"
 SYMBOL_B = "o"
+SYMBOL_UEBERLAPP = "X"
 
 
 def _linie_punkte(x0, y0, x1, y1):
@@ -61,14 +62,32 @@ def erstelle_raster(a, b, breite=41, hoehe=21):
         raster[zeile][mitte_x] = "|"
     raster[mitte_y][mitte_x] = "+"
 
-    for vektor, symbol, label in ((a, SYMBOL_A, "A"), (b, SYMBOL_B, "B")):
-        ziel_x = _vektor_zu_rasterpunkt(vektor[0], mitte_x, skala)
-        ziel_y = _vektor_zu_rasterpunkt(vektor[1], mitte_y, skala, invertieren=True)
-        punkte = _linie_punkte(mitte_x, mitte_y, ziel_x, ziel_y)
+    ziel_a = (
+        _vektor_zu_rasterpunkt(a[0], mitte_x, skala),
+        _vektor_zu_rasterpunkt(a[1], mitte_y, skala, invertieren=True),
+    )
+    ziel_b = (
+        _vektor_zu_rasterpunkt(b[0], mitte_x, skala),
+        _vektor_zu_rasterpunkt(b[1], mitte_y, skala, invertieren=True),
+    )
+
+    # Erst beide Linien zeichnen, danach beide Labels setzen - so bleiben
+    # beide Labels sichtbar, auch wenn die Linie eines Vektors über die
+    # Spitze des anderen verläuft (z.B. bei gleicher Richtung).
+    for ziel, symbol in ((ziel_a, SYMBOL_A), (ziel_b, SYMBOL_B)):
+        punkte = _linie_punkte(mitte_x, mitte_y, ziel[0], ziel[1])
         for x, y in punkte[1:-1]:
             if 0 <= x < breite and 0 <= y < hoehe:
                 raster[y][x] = symbol
-        if 0 <= ziel_x < breite and 0 <= ziel_y < hoehe:
-            raster[ziel_y][ziel_x] = label
+
+    if ziel_a == ziel_b:
+        x, y = ziel_a
+        if 0 <= x < breite and 0 <= y < hoehe:
+            raster[y][x] = SYMBOL_UEBERLAPP
+    else:
+        for ziel, label in ((ziel_a, "A"), (ziel_b, "B")):
+            x, y = ziel
+            if 0 <= x < breite and 0 <= y < hoehe:
+                raster[y][x] = label
 
     return ["".join(zeile) for zeile in raster]
