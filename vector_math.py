@@ -3,7 +3,7 @@
 import math
 
 
-def skalarprodukt(a, b):
+def skalarprodukt(a: list[float], b: list[float]) -> float:
     """Berechnet das Skalarprodukt zweier Vektoren ohne externe Bibliothek."""
     if len(a) != len(b):
         raise ValueError("Vektoren müssen die gleiche Länge haben.")
@@ -13,7 +13,7 @@ def skalarprodukt(a, b):
     return summe
 
 
-def betrag(v):
+def betrag(v: list[float]) -> float:
     """Berechnet die euklidische Norm (Länge) eines Vektors."""
     quadratsumme = 0.0
     for x in v:
@@ -21,7 +21,7 @@ def betrag(v):
     return math.sqrt(quadratsumme)
 
 
-def cosinus_aehnlichkeit(a, b):
+def cosinus_aehnlichkeit(a: list[float], b: list[float]) -> float:
     """Berechnet die Cosinus-Ähnlichkeit zweier Vektoren."""
     norm_a = betrag(a)
     norm_b = betrag(b)
@@ -32,7 +32,7 @@ def cosinus_aehnlichkeit(a, b):
     return skalarprodukt(a, b) / (norm_a * norm_b)
 
 
-def winkel_in_grad(a, b):
+def winkel_in_grad(a: list[float], b: list[float]) -> float:
     """Berechnet den Winkel zwischen zwei Vektoren in Grad."""
     cos_theta = cosinus_aehnlichkeit(a, b)
     cos_theta = max(-1.0, min(1.0, cos_theta))

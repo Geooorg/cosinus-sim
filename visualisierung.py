@@ -5,9 +5,9 @@ SYMBOL_B = "o"
 SYMBOL_UEBERLAPP = "X"
 
 
-def _linie_punkte(x0, y0, x1, y1):
+def _linie_punkte(x0: int, y0: int, x1: int, y1: int) -> list[tuple[int, int]]:
     """Berechnet die Rasterpunkte einer Linie mit dem Bresenham-Algorithmus."""
-    punkte = []
+    punkte: list[tuple[int, int]] = []
     dx = abs(x1 - x0)
     dy = -abs(y1 - y0)
     sx = 1 if x0 < x1 else -1
@@ -28,14 +28,18 @@ def _linie_punkte(x0, y0, x1, y1):
     return punkte
 
 
-def _vektor_zu_rasterpunkt(wert, mitte, skala, invertieren=False):
+def _vektor_zu_rasterpunkt(
+    wert: float, mitte: int, skala: float, invertieren: bool = False
+) -> int:
     verschiebung = wert * skala
     if invertieren:
         verschiebung = -verschiebung
     return round(mitte + verschiebung)
 
 
-def erstelle_raster(a, b, breite=41, hoehe=21):
+def erstelle_raster(
+    a: list[float], b: list[float], breite: int = 41, hoehe: int = 21
+) -> list[str]:
     """Erstellt ein ASCII-Koordinatenraster mit den Vektoren a und b.
 
     a und b müssen genau 2 Komponenten haben. Gibt eine Liste von

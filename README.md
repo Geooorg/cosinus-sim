@@ -20,7 +20,7 @@ markiert, wenn beide Vektoren in dieselbe Richtung zeigen.
 
 ## Voraussetzungen
 
-- Python 3.9 oder neuer
+- Python 3.12 oder neuer
 - [uv](https://docs.astral.sh/uv/) – verwaltet die Abhängigkeiten und die
   passende virtuelle Umgebung automatisch. `uv run ...` installiert bei
   Bedarf selbstständig alles Nötige in eine projekteigene Umgebung; eine

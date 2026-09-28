@@ -9,7 +9,7 @@ from visualisierung import erstelle_raster, SYMBOL_A, SYMBOL_B, SYMBOL_UEBERLAPP
 
 colorama_init(autoreset=True)
 
-FARBEN = {
+FARBEN: dict[str, str] = {
     SYMBOL_A: Fore.RED,
     "A": Fore.RED,
     SYMBOL_B: Fore.BLUE,
@@ -18,7 +18,7 @@ FARBEN = {
 }
 
 
-def faerbe_raster(raster):
+def faerbe_raster(raster: list[str]) -> list[str]:
     """Färbt die Vektor-Symbole und -Labels im ASCII-Raster mit colorama ein."""
     gefaerbte_zeilen = []
     for zeile in raster:
@@ -30,7 +30,7 @@ def faerbe_raster(raster):
     return gefaerbte_zeilen
 
 
-def lese_vektor(bezeichnung):
+def lies_vektor(bezeichnung: str) -> list[float]:
     while True:
         eingabe = input(f"Vektor {bezeichnung} (Werte durch Leerzeichen getrennt): ")
         try:
@@ -50,17 +50,17 @@ def lese_vektor(bezeichnung):
         return vektor
 
 
-def lese_zwei_vektoren():
-    a = lese_vektor("A")
+def lies_zwei_vektoren() -> tuple[list[float], list[float]]:
+    a = lies_vektor("A")
     while True:
-        b = lese_vektor("B")
+        b = lies_vektor("B")
         if len(a) != len(b):
             print(f"Vektor B muss wie Vektor A genau {len(a)} Werte haben.\n")
             continue
         return a, b
 
 
-def zeige_skalarprodukt_schritte(a, b):
+def zeige_skalarprodukt_schritte(a: list[float], b: list[float]) -> float:
     print("Schritt 1: Skalarprodukt (Punktprodukt)")
     produkte = [x * y for x, y in zip(a, b)]
     terme = " + ".join(f"({x:g}·{y:g})" for x, y in zip(a, b))
@@ -73,7 +73,7 @@ def zeige_skalarprodukt_schritte(a, b):
     return ergebnis
 
 
-def zeige_betrag_schritte(v, name):
+def zeige_betrag_schritte(v: list[float], name: str) -> float:
     print(f"Schritt: Betrag (Norm) von {name}")
     quadrate = " + ".join(f"({x:g})²" if x < 0 else f"{x:g}²" for x in v)
     quadratsumme = sum(x * x for x in v)
@@ -85,7 +85,9 @@ def zeige_betrag_schritte(v, name):
     return ergebnis
 
 
-def zeige_cosinus_schritt(a, b, norm_a, norm_b, skalar):
+def zeige_cosinus_schritt(
+    a: list[float], b: list[float], norm_a: float, norm_b: float, skalar: float
+) -> float:
     print("Schritt: Cosinus-Ähnlichkeit")
     ergebnis = cosinus_aehnlichkeit(a, b)
     print("  cos(θ) = (A · B) / (‖A‖ · ‖B‖)")
@@ -95,7 +97,7 @@ def zeige_cosinus_schritt(a, b, norm_a, norm_b, skalar):
     return ergebnis
 
 
-def interpretiere(ergebnis):
+def interpretiere(ergebnis: float) -> str:
     if ergebnis > 0.9:
         return "Die Vektoren sind sich sehr ähnlich (kleiner Winkel)."
     if ergebnis > 0.1:
@@ -107,7 +109,7 @@ def interpretiere(ergebnis):
     return "Die Vektoren zeigen (nahezu) in entgegengesetzte Richtungen."
 
 
-def main():
+def main() -> None:
     print("=== Cosinus-Ähnlichkeit ===")
     print(
         "Die Cosinus-Ähnlichkeit misst, wie ähnlich sich zwei Vektoren in ihrer\n"
@@ -115,7 +117,7 @@ def main():
         "die Ähnlichkeit von Texten oder Empfehlungen zu berechnen.\n"
     )
 
-    a, b = lese_zwei_vektoren()
+    a, b = lies_zwei_vektoren()
     print()
 
     skalar = zeige_skalarprodukt_schritte(a, b)

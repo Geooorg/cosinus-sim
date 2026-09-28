@@ -3,7 +3,7 @@ name = "cosinus-sim"
 version = "0.1.0"
 description = "Lernprojekt: Cosinus-Ähnlichkeit Schritt für Schritt nachvollziehen"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.12"
 dependencies = [
     "colorama>=0.4.6",
 ]
