@@ -1,6 +1,6 @@
 # Cosinus-Ähnlichkeit – Lernprojekt
 
-Ein kleines Python-Kommandozeilen-Projekt für Schüler der Oberstufe, um die
+Ein kleines Python-Kommandozeilen-Projekt, um die
 Berechnung der **Cosinus-Ähnlichkeit** zweier Vektoren Schritt für Schritt
 nachzuvollziehen.
 
@@ -14,14 +14,15 @@ berechnen.
 Das Programm fragt zwei Vektoren ab, zeigt dann jeden Rechenschritt einzeln
 an (Skalarprodukt, Betrag/Normalisierung, Einsetzen in die Formel) und gibt
 am Ende das Ergebnis mit einer kurzen Einordnung aus. Sind beide Vektoren
-2-dimensional, wird zusätzlich eine einfache ASCII-Visualisierung im
-Terminal angezeigt.
+2-dimensional, wird zusätzlich eine ASCII-Visualisierung im Terminal
+angezeigt: Vektor A erscheint rot, Vektor B blau, und ein magenta "X"
+markiert, wenn beide Vektoren in dieselbe Richtung zeigen.
 
 ## Voraussetzungen
 
 - Python 3.9 oder neuer
-- Keine externen Pakete nötig, um das Programm auszuführen (nur die
-  Python-Standardbibliothek)
+- Die Rechenlogik selbst (`vector_math.py`) braucht keine externen Pakete
+- Für die farbige Terminal-Visualisierung: `pip install colorama`
 - Für die Tests: `pip install pytest`
 
 ## Ausführen

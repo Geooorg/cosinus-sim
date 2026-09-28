@@ -2,8 +2,32 @@
 
 import math
 
+from colorama import Fore, Style, init as colorama_init
+
 from vector_math import skalarprodukt, betrag, cosinus_aehnlichkeit, winkel_in_grad
-from visualisierung import erstelle_raster
+from visualisierung import erstelle_raster, SYMBOL_A, SYMBOL_B, SYMBOL_UEBERLAPP
+
+colorama_init(autoreset=True)
+
+FARBEN = {
+    SYMBOL_A: Fore.RED,
+    "A": Fore.RED,
+    SYMBOL_B: Fore.BLUE,
+    "B": Fore.BLUE,
+    SYMBOL_UEBERLAPP: Fore.MAGENTA,
+}
+
+
+def faerbe_raster(raster):
+    """Färbt die Vektor-Symbole und -Labels im ASCII-Raster mit colorama ein."""
+    gefaerbte_zeilen = []
+    for zeile in raster:
+        gefaerbt = "".join(
+            f"{FARBEN[zeichen]}{zeichen}{Style.RESET_ALL}" if zeichen in FARBEN else zeichen
+            for zeichen in zeile
+        )
+        gefaerbte_zeilen.append(gefaerbt)
+    return gefaerbte_zeilen
 
 
 def lese_vektor(bezeichnung):
@@ -106,9 +130,13 @@ def main():
     if len(a) == 2 and len(b) == 2:
         winkel = winkel_in_grad(a, b)
         print("=== Visualisierung ===")
-        for zeile in erstelle_raster(a, b):
+        for zeile in faerbe_raster(erstelle_raster(a, b)):
             print(zeile)
-        print("\nLegende: * = Vektor A, o = Vektor B, X = A und B (gleiche Richtung)")
+        print(
+            f"\nLegende: {Fore.RED}* = Vektor A{Style.RESET_ALL}, "
+            f"{Fore.BLUE}o = Vektor B{Style.RESET_ALL}, "
+            f"{Fore.MAGENTA}X = A und B (gleiche Richtung){Style.RESET_ALL}"
+        )
         print(f"Winkel zwischen den Vektoren: {winkel:.2f}°")
     else:
         print("Hinweis: Die Visualisierung ist nur für 2D-Vektoren verfügbar.")
